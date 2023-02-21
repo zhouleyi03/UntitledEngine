@@ -1,11 +1,21 @@
-﻿# CMakeList.txt: UntitledEngine 的 CMake 项目，在此处包括源代码并定义
-# 项目特定的逻辑。
-#
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required(VERSION 3.17)
 
-project ("UntitledEngine")
+project(UntitledEngine VERSION 0.1.0)
 
-# 将源代码添加到此项目的可执行文件。
-add_executable (UntitledEngine "UntitledEngine.cpp" "UntitledEngine.h")
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(BUILD_SHARED_LIBS OFF)
 
-# TODO: 如有需要，请添加测试并安装目标。
+include(CMakeDependentOption)
+if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
+  message(
+    FATAL_ERROR
+      "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there."
+  )
+endif()
+
+set(UNTITLED_ENGINE_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(CMAKE_INSTALL_PREFIX "${UNTITLED_ENGINE__ROOT_DIR}/bin")
+set(BINARY_ROOT_DIR "${CMAKE_INSTALL_PREFIX}/")
+
+add_subdirectory(src)
